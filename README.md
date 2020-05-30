@@ -1,4 +1,4 @@
-# reinforcement_learning_Trials
+# rl_Trials
 Just have a simple try!
 
-The record of my improvements.
+recording!
