@@ -1,1 +1,1 @@
-chapter_08
+** chapter_08 DQN Extensions **
