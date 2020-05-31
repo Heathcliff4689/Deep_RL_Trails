@@ -31,26 +31,7 @@ implement everything from scratch. From my perspective, this is a much more
 valuable skill, as libraries come and go, but true understanding of the domain will
 allow you to quickly make sense of other people's code and apply it consciously.*
 
-### unpack batch
-'''
-def unpack_batch(batch: List[ptan.experience.ExperienceFirstLast]):
-    states, actions, rewards, dones, last_states = [],[],[],[],[]
-    for exp in batch:
-        state = np.array(exp.state)
-        states.append(state)
-        actions.append(exp.action)
-        rewards.append(exp.reward)
-        dones.append(exp.last_state is None)
-        if exp.last_state is None:
-            lstate = state  # the result will be masked anyway
-        else:
-            lstate = np.array(exp.last_state)
-        last_states.append(lstate)
-    return np.array(states, copy=False), np.array(actions), \
-           np.array(rewards, dtype=np.float32), \
-           np.array(dones, dtype=np.uint8), \
-           np.array(last_states, copy=False)
- '''
+
 
 
 
