@@ -52,4 +52,24 @@ allow you to quickly make sense of other people's code and apply it consciously.
            np.array(last_states, copy=False)
 
 
+### calculate the loss 
+    def calc_loss_dqn(batch, net, tgt_net, gamma, device="cpu"):
+    states, actions, rewards, dones, next_states = \
+        unpack_batch(batch)
+
+    states_v = torch.tensor(states).to(device)
+    next_states_v = torch.tensor(next_states).to(device)
+    actions_v = torch.tensor(actions).to(device)
+    rewards_v = torch.tensor(rewards).to(device)
+    done_mask = torch.BoolTensor(dones).to(device)
+
+    actions_v = actions_v.unsqueeze(-1)
+    state_action_vals = net(states_v).gather(1, actions_v)
+    state_action_vals = state_action_vals.squeeze(-1)
+    with torch.no_grad():
+        next_state_vals = tgt_net(next_states_v).max(1)[0]
+        next_state_vals[done_mask] = 0.0
+
+    bellman_vals = next_state_vals.detach() * gamma + rewards_v
+    return nn.MSELoss()(state_action_vals, bellman_vals)
 
